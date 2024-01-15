@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { sha256 } from "js-sha256"
-import * as fbq from "../../lib/fbixel";
+import * as fbq from "../../lib/fbpixel";
 
 import { Button } from "@/components/ui/button"
 import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
@@ -79,7 +79,7 @@ const SimpleTestForm: FC<Props> = () => {
  
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    fbq.event("CompleteRegistration", {eventID: "testform123"})
+    fbq.event("CompleteRegistration", {value: 12, currency: 'USD'}, {eventID: "testform123", })
     fetch(`https://graph.facebook.com/v18.0/${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID}/events?access_token=${process.env.NEXT_PUBLIC_FBACCESSKEY}`, {
             method: "POST",
             headers: {

@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import Script from "next/script";
 import { useEffect, useState } from "react";
-import * as pixel from "../../lib/fbixel";
+import * as pixel from "../../lib/fbpixel";
 
 const FacebookPixel = () => {
   const [loaded, setLoaded] = useState(false);
