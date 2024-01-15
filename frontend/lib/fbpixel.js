@@ -5,7 +5,7 @@ export const pageview = () => {
 };
 
 // https://developers.facebook.com/docs/facebook-pixel/advanced/
-export const event = (name, options, eventId = {}) => {
+export const event = (name, options = {}) => {
   window.fbq("track", name, options);
 };
 
