@@ -43,6 +43,7 @@ const SimpleTestForm: FC<Props> = () => {
                 "data": [
                     {
                         "event_name": "CompleteRegistration",
+                        "event_id": "testform123",
                         "event_time": Math.floor(Date.now() / 1000),
                         "action_source": "website",
                         "user_data": {
