@@ -1,9 +1,16 @@
-import { Button } from "@/components/ui/button";
+import RequestButton from "@/components/custom/RequestButton";
+import Container from "@/components/general/Container";
+import Section from "@/components/general/Section";
 
 export default function Home() {
+
   return (
     <main>
-      <Button>Send data to Conversion API</Button>
+      <Section>
+        <Container>
+          <RequestButton />
+        </Container>
+      </Section>
     </main>
   )
 }
