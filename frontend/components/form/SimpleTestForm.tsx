@@ -3,7 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
- 
+
+
 import { Button } from "@/components/ui/button"
 import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -25,15 +26,45 @@ const SimpleTestForm: FC<Props> = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      username: "Max Mausimann",
+      email: "max.mausimann85@gmail.com",
+      phone: "+49 167/22368736"
     },
   })
  
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
+    fetch(`https://graph.facebook.com/v18.0/1565141384244262/events?access_token=${process.env.NEXT_PUBLIC_FBACCESSKEY}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "data": [
+                    {
+                        "event_name": "CompleteRegistration",
+                        "event_time": Math.floor(Date.now() / 1000),
+                        "action_source": "website",
+                        "user_data": {
+                            "fn": [
+                                "e26886dbba976c9a2c367a75a611dc94a88e8cbca46108f783a1c6fb556bfe28"
+                            ],
+                            "ln": [
+                                "cf8cb917c1fdda8afff67acb0a7491ac912cf3c5641c65376d5b86f26879cbeb"
+                            ]
+                        },
+                        "custom_data": {
+                            "currency": "USD",
+                            "value": "142.52"
+                        }
+                    }
+                ], "test_event_code": "TEST35391"
+            })
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+    console.log("These are the form values: ", values)
   }
 
     return (
