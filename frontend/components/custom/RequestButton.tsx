@@ -19,7 +19,7 @@ const RequestButton: FC<Props> = () => {
                 "data": [
                     {
                         "event_name": "ViewContent",
-                        "event_time": Date.now(),
+                        "event_time": Math.floor(Date.now() / 1000),
                         "action_source": "website",
                         "user_data": {
                             "fn": [
