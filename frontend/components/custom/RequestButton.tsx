@@ -2,6 +2,7 @@
 
 import React, { FC } from 'react';
 import { Button } from '../ui/button';
+import * as fbq from "../../lib/fbpixel";
 
 interface Props {}
 
@@ -10,6 +11,7 @@ const RequestButton: FC<Props> = () => {
     const access_token="EAAJuiDpXXUEBOZCbsIP6JbCoEY0wBLH9INgQl1n0ZAF9zwLlSzNiqP4zV0cGyqq2DX15kZAZBkuj1q2SO6Uq1p4Ne01CDnZAFBHPeGlLi1xHxeITaqZCr3tREl11ZBR3bGGUz2z6fSNhJGGAJoZBkmkZBbCGWgPMbFeZAsgdToucmH12302uX0AQk2HMfZCywrUg749bQZDZD";
 
     function onButtonClickHandler() {
+        fbq.event("ViewContent", {value: 12, currency: 'USD'}, {eventID: "123123"} )
         fetch(`https://graph.facebook.com/v18.0/${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID}/events?access_token=${process.env.NEXT_PUBLIC_FBACCESSKEY}`, {
             method: "POST",
             headers: {
@@ -20,6 +22,7 @@ const RequestButton: FC<Props> = () => {
                     {
                         "event_name": "ViewContent",
                         "event_time": Math.floor(Date.now() / 1000),
+                        "event_id": "123123",
                         "action_source": "website",
                         "user_data": {
                             "fn": [
