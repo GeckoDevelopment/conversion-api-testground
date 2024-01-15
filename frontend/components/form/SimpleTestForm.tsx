@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-
+import { sha256 } from "js-sha256"
 
 import { Button } from "@/components/ui/button"
 import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input"
 import { FC } from "react"
  
 const formSchema = z.object({
-  username: z.string().min(2, {
+  firstName: z.string().min(2, {
     message: "Username must be at least 2 characters.",
   }),
   email: z.string(),
@@ -26,7 +26,7 @@ const SimpleTestForm: FC<Props> = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "Max Mausimann",
+      firstName: "Max Mausimann",
       email: "max.mausimann85@gmail.com",
       phone: "+49 167/22368736"
     },
@@ -47,15 +47,18 @@ const SimpleTestForm: FC<Props> = () => {
                         "action_source": "website",
                         "user_data": {
                             "fn": [
-                                "e26886dbba976c9a2c367a75a611dc94a88e8cbca46108f783a1c6fb556bfe28"
+                                sha256(values.firstName)
                             ],
-                            "ln": [
-                                "cf8cb917c1fdda8afff67acb0a7491ac912cf3c5641c65376d5b86f26879cbeb"
-                            ]
+                            "em": [
+                                sha256(values.email)
+                            ],
+                            "ph": [
+                                sha256(values.phone)
+                            ],
                         },
                         "custom_data": {
-                            "currency": "USD",
-                            "value": "142.52"
+                            "currency": "EUR",
+                            "value": "79.50"
                         }
                     }
                 ], "test_event_code": "TEST35391"
@@ -72,7 +75,7 @@ const SimpleTestForm: FC<Props> = () => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
               control={form.control}
-              name="username"
+              name="firstName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Username</FormLabel>
@@ -80,7 +83,7 @@ const SimpleTestForm: FC<Props> = () => {
                     <Input placeholder="shadcn" {...field} />
                   </FormControl>
                   <FormDescription>
-                    This is your public display name.
+                    Put your first name here please
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
