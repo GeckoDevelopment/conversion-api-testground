@@ -8,7 +8,7 @@ interface Props {}
 const RequestButton: FC<Props> = () => {
 
     function onButtonClickHandler() {
-        fetch(`https://graph.facebook.com/v18.0/1565141384244262/events?access_token=${process.env.REACT_APP_FBACCESSKEY}`, {
+        fetch(`https://graph.facebook.com/v18.0/1565141384244262/events?access_token=${process.env.FBACCESSKEY}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
