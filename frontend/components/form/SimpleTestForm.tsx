@@ -79,7 +79,7 @@ const SimpleTestForm: FC<Props> = () => {
  
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    fbq.event("CompleteRegistration", createSendingData(values))
+    fbq.event("CompleteRegistration", {eventID: "testform123"})
     fetch(`https://graph.facebook.com/v18.0/${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID}/events?access_token=${process.env.NEXT_PUBLIC_FBACCESSKEY}`, {
             method: "POST",
             headers: {
