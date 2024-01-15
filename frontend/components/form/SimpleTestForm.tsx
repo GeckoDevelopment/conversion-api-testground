@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { sha256 } from "js-sha256"
+import * as fbq from "../../lib/fbixel";
 
 import { Button } from "@/components/ui/button"
 import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
@@ -20,6 +21,26 @@ const formSchema = z.object({
 
 interface Props {}
 
+interface UserData {
+  fn: string[];
+  em: string[];
+  ph: string[];
+}
+
+interface CustomData {
+  currency: string;
+  value: string;
+}
+
+interface SendingData {
+  event_name: string;
+  event_id: string;
+  event_time: number;
+  action_source: string;
+  user_data: UserData;
+  custom_data: CustomData;
+}
+
 const SimpleTestForm: FC<Props> = () => {
 
       // 1. Define your form.
@@ -31,37 +52,42 @@ const SimpleTestForm: FC<Props> = () => {
       phone: "+49 167/22368736"
     },
   })
+
+  const createSendingData = (values: z.infer<typeof formSchema>): SendingData => {
+    return {
+      "event_name": "CompleteRegistration",
+      "event_id": "testform123",
+      "event_time": Math.floor(Date.now() / 1000),
+      "action_source": "website",
+      "user_data": {
+          "fn": [
+              sha256(values.firstName)
+          ],
+          "em": [
+              sha256(values.email)
+          ],
+          "ph": [
+              sha256(values.phone)
+          ],
+      },
+      "custom_data": {
+          "currency": "EUR",
+          "value": "79.50"
+      }
+    }
+  }
  
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    fetch(`https://graph.facebook.com/v18.0/1565141384244262/events?access_token=${process.env.NEXT_PUBLIC_FBACCESSKEY}`, {
+    fbq.event("CompleteRegistration", createSendingData(values))
+    fetch(`https://graph.facebook.com/v18.0/${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID}/events?access_token=${process.env.NEXT_PUBLIC_FBACCESSKEY}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 "data": [
-                    {
-                        "event_name": "CompleteRegistration",
-                        "event_id": "testform123",
-                        "event_time": Math.floor(Date.now() / 1000),
-                        "action_source": "website",
-                        "user_data": {
-                            "fn": [
-                                sha256(values.firstName)
-                            ],
-                            "em": [
-                                sha256(values.email)
-                            ],
-                            "ph": [
-                                sha256(values.phone)
-                            ],
-                        },
-                        "custom_data": {
-                            "currency": "EUR",
-                            "value": "79.50"
-                        }
-                    }
+                    createSendingData(values)
                 ], "test_event_code": "TEST35391"
             })
         })

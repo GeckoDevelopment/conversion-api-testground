@@ -10,7 +10,7 @@ const RequestButton: FC<Props> = () => {
     const access_token="EAAJuiDpXXUEBOZCbsIP6JbCoEY0wBLH9INgQl1n0ZAF9zwLlSzNiqP4zV0cGyqq2DX15kZAZBkuj1q2SO6Uq1p4Ne01CDnZAFBHPeGlLi1xHxeITaqZCr3tREl11ZBR3bGGUz2z6fSNhJGGAJoZBkmkZBbCGWgPMbFeZAsgdToucmH12302uX0AQk2HMfZCywrUg749bQZDZD";
 
     function onButtonClickHandler() {
-        fetch(`https://graph.facebook.com/v18.0/1565141384244262/events?access_token=${process.env.NEXT_PUBLIC_FBACCESSKEY}`, {
+        fetch(`https://graph.facebook.com/v18.0/${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID}/events?access_token=${process.env.NEXT_PUBLIC_FBACCESSKEY}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
