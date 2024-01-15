@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-    @apply font-light min-h-screen flex flex-col shrink-0 bg-gray-900;
+    @apply font-light min-h-screen flex flex-col shrink-0;
 }
   
 h1 {
