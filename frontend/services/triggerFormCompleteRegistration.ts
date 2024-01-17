@@ -4,10 +4,10 @@ import { z } from "zod";
 import { formSchema } from "@/components/form/SimpleTestForm";
 import { SendingData } from "@/interfaces";
 
-const createSendingData = (values: z.infer<typeof formSchema>): SendingData => {
+const createSendingData = (values: z.infer<typeof formSchema>, eventId: string): SendingData => {
     return {
       "event_name": "CompleteRegistration",
-      "event_id": "testform123",
+      "event_id": eventId,
       "event_time": Math.floor(Date.now() / 1000),
       "action_source": "website",
       "user_data": {
@@ -22,14 +22,15 @@ const createSendingData = (values: z.infer<typeof formSchema>): SendingData => {
           ],
       },
       "custom_data": {
-          "currency": "EUR",
-          "value": "79.50"
+          "currency": "USD",
+          "value": "12"
       }
     }
   }
 
 export default function triggerFormCompleteRegistration(values: z.infer<typeof formSchema>) {
-    fbq.event("CompleteRegistration", {value: 12, currency: 'USD'}, {eventID: "testform123"} )
+    const eventId: string = crypto.randomUUID();
+    fbq.event("CompleteRegistration", {value: 12, currency: 'USD'}, {eventID: eventId} )
     fetch(`https://graph.facebook.com/v18.0/${process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID}/events?access_token=${process.env.NEXT_PUBLIC_FBACCESSKEY}`, {
             method: "POST",
             headers: {
@@ -37,7 +38,7 @@ export default function triggerFormCompleteRegistration(values: z.infer<typeof f
             },
             body: JSON.stringify({
                 "data": [
-                    createSendingData(values)
+                    createSendingData(values, eventId)
                 ], "test_event_code": "TEST37726"
             })
         })

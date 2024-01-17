@@ -24,7 +24,6 @@ interface Props {}
 
 const SimpleTestForm: FC<Props> = () => {
 
-      // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -34,7 +33,6 @@ const SimpleTestForm: FC<Props> = () => {
     },
   })
  
-  // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     triggerFormCompleteRegistration(values)
     console.log("These are the form values: ", values)
