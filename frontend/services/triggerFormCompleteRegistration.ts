@@ -39,7 +39,7 @@ export default function triggerFormCompleteRegistration(values: z.infer<typeof f
             body: JSON.stringify({
                 "data": [
                     createSendingData(values, eventId)
-                ], "test_event_code": "TEST37726"
+                ], "test_event_code": process.env.NEXT_PUBLIC_TEST_ID
             })
         })
         .then(response => response.json())
