@@ -1,5 +1,6 @@
 interface UserData {
     fn: string[];
+    ln: string[];
     em: string[];
     ph: string[];
   }

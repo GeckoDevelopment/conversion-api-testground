@@ -15,6 +15,9 @@ const createSendingData = (values: z.infer<typeof formSchema>, eventId: string):
           "fn": [
               sha256(values.firstName)
           ],
+          "ln": [
+              sha256(values.firstName)
+          ],
           "em": [
               sha256(values.email)
           ],
