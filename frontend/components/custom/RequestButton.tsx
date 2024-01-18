@@ -32,7 +32,7 @@ const RequestButton: FC<Props> = () => {
                         },
                         "custom_data": {
                             "currency": "USD",
-                            "value": "142.52"
+                            "value": "12"
                         }
                     }
                 ], "test_event_code": "TEST37726"
