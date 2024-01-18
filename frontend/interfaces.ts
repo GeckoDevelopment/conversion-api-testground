@@ -13,6 +13,7 @@ interface UserData {
     event_name: string;
     event_id: string;
     event_time: number;
+    event_source: string;
     action_source: string;
     user_data: UserData;
     custom_data: CustomData;
