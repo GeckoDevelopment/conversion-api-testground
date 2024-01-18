@@ -9,8 +9,8 @@ const createSendingData = (values: z.infer<typeof formSchema>, eventId: string):
       "event_name": "CompleteRegistration",
       "event_id": eventId,
       "event_time": Math.floor(Date.now() / 1000),
-      "action_source_url": "website",
-      "event_source": "https://conversion-api-lake.vercel.app/",
+      "action_source": "website",
+      "event_source_url": "https://conversion-api-lake.vercel.app/",
       "user_data": {
           "fn": [
               sha256(values.firstName)
