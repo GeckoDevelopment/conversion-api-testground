@@ -27,9 +27,9 @@ const SimpleTestForm: FC<Props> = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstName: "Max Mausimann",
-      email: "max.mausimann85@gmail.com",
-      phone: "+49 167/22368736"
+      firstName: "Jon Doe",
+      email: "jon.doe@gmail.com",
+      phone: "+49 999/1515999"
     },
   })
  
