@@ -3,8 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { sha256 } from "js-sha256"
-import * as fbq from "../../lib/fbpixel";
 
 import { Button } from "@/components/ui/button"
 import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form"
