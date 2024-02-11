@@ -3,6 +3,8 @@ interface UserData {
     ln: string[];
     em: string[];
     ph: string[];
+    client_user_agent: string;
+    client_ip_address: string;
   }
   
   interface CustomData {
@@ -10,12 +12,11 @@ interface UserData {
     value: string;
   }
   
-  export interface SendingData {
+  export interface FormSendingData {
     event_name: string;
     event_id: string;
     event_time: number;
-    event_source_url: string;
     action_source: string;
+    event_source_url: string;
     user_data: UserData;
-    custom_data: CustomData;
   }
