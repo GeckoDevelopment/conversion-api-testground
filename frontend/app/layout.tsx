@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.scss'
 import FacebookPixel from '../components/tracking/FacebookPixel'
+import GoogleTagManager from '@/components/custom/GoogleTagManager';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,9 +19,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <GoogleTagManager containterId='GTM-WX85R83R' />
+      </head>
       <body className={inter.className}>
         {children}
-        <FacebookPixel />
       </body>
     </html>
   )
