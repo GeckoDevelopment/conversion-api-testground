@@ -9,6 +9,7 @@ import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, Form
 import { Input } from "@/components/ui/input"
 import { FC } from "react"
 import triggerFormCompleteRegistration from "@/services/triggerFormCompleteRegistration"
+import { pushToDataLayer } from "@/services/pushToDataLayer"
  
 export const formSchema = z.object({
   firstName: z.string().min(2, {
@@ -17,16 +18,6 @@ export const formSchema = z.object({
   email: z.string(),
   phone: z.string()
 })
-
-type WindowWithDataLayer = Window & {
-  dataLayer: Record<string, any>[];
-};
-declare const window: WindowWithDataLayer;
-export const pushToDataLayer = (successEventName: string) => {
-  window.dataLayer.push({
-    event: successEventName,
-  });
-};
 
 interface Props {}
 
@@ -42,7 +33,8 @@ const SimpleTestForm: FC<Props> = () => {
   })
  
   function onSubmit(values: z.infer<typeof formSchema>) {
-    triggerFormCompleteRegistration(values)
+    // triggerFormCompleteRegistration(values)
+    pushToDataLayer("formCompleted")
     console.log("These are the form values: ", values)
   }
 
