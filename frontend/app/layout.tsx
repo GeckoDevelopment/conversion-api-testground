@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <GoogleTagManager containterId='GTM-WX85R83R' />
+        <GoogleTagManager containterId='GTM-MG35HSRD' />
       </head>
       <body className={inter.className}>
         {children}
