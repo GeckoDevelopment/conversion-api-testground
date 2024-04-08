@@ -2,9 +2,8 @@ import React from 'react';
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.scss'
-import FacebookPixel from '../components/tracking/FacebookPixel'
 import GoogleTagManager from '@/components/custom/GoogleTagManager';
-
+import Script from 'next/script';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -20,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <GoogleTagManager containterId='GTM-MG35HSRD' />
+        <GoogleTagManager containerId='GTM-MG35HSRD' />
       </head>
       <body className={inter.className}>
         {children}
